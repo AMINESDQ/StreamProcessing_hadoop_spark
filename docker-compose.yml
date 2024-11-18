@@ -1,0 +1,73 @@
+version: '3'
+services:
+  spark-master:
+    image: bitnami/spark:latest
+    container_name: spark-master
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    ports:
+      - "8080:8080"  # Interface web Spark Master
+      - "7077:7077"  # Port pour les soumissions de jobs
+    volumes:
+      - ./app:/opt/spark-app  # Monte le répertoire 'data' local dans le conteneur
+    networks:
+      - spark-network
+
+  spark-worker-1:
+    image: bitnami/spark:latest
+    container_name: spark-worker-1
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1
+    depends_on:
+      - spark-master
+    volumes:
+      - ./app:/opt/spark-app
+    networks:
+      - spark-network
+
+
+
+
+
+  namenode:
+    image: apache/hadoop:3.3.6
+    hostname: hadoop-namenode
+    command: [ "hdfs", "namenode" ]
+    ports:
+      - 9870:9870
+      - 8020-8020
+    env_file:
+      - ./config
+    volumes:
+      - hadoop-namenode-data:/hadoop/dfs/name
+      - ./csv_files:/opt/hadoop/csv_files  # Monte le répertoire local contenant les CSV dans le conteneur
+    environment:
+      ENSURE_NAMENODE_DIR: "/tmp/hadoop-root/dfs/name"
+    networks:
+      - spark-network
+
+  datanode:
+    image: apache/hadoop:3.3.6
+    command: [ "hdfs", "datanode" ]
+    volumes:
+      - hadoop-datanode-data:/hadoop/dfs/data
+      - ./csv_files:/opt/hadoop/csv_files  # Monte le répertoire local contenant les CSV dans le conteneur
+    env_file:
+      - ./config
+    networks:
+      - spark-network
+
+networks:
+  spark-network:
+    driver: bridge
+
+volumes:
+  hadoop-namenode-data:
+  hadoop-datanode-data:

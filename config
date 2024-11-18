@@ -1,0 +1,39 @@
+# Set Hadoop installation directory
+HADOOP_HOME=/opt/hadoop
+
+# Core-site settings for Hadoop, defining the default filesystem (HDFS) to be used by Spark and Hadoop
+CORE-SITE.XML_fs.default.name=hdfs://namenode:8020
+CORE-SITE.XML_fs.defaultFS=hdfs://namenode:8020
+
+# HDFS configuration to set RPC address, replication factor, and permissions
+HDFS-SITE.XML_dfs.namenode.rpc-address=namenode:8020
+HDFS-SITE.XML_dfs.replication=1               # Set replication factor to 1 (adjust as needed for fault tolerance)
+HDFS-SITE.XML_dfs.permissions=false           # Disable permissions for simpler access control in development
+
+# MapReduce settings, specifying YARN as the resource management framework
+MAPRED-SITE.XML_mapreduce.framework.name=yarn
+MAPRED-SITE.XML_yarn.app.mapreduce.am.env=HADOOP_MAPRED_HOME=$HADOOP_HOME
+MAPRED-SITE.XML_mapreduce.map.env=HADOOP_MAPRED_HOME=$HADOOP_HOME
+MAPRED-SITE.XML_mapreduce.reduce.env=HADOOP_MAPRED_HOME=$HADOOP_HOME
+
+# YARN configuration to define resource manager and NodeManager settings
+YARN-SITE.XML_yarn.resourcemanager.hostname=resourcemanager           # Hostname for YARN's Resource Manager (if not using ResourceManager, comment out)
+YARN-SITE.XML_yarn.nodemanager.pmem-check-enabled=false               # Disable physical memory checks to avoid container restrictions
+YARN-SITE.XML_yarn.nodemanager.delete.debug-delay-sec=600             # Delay for debug in seconds
+YARN-SITE.XML_yarn.nodemanager.vmem-check-enabled=false               # Disable virtual memory checks to avoid OOM errors
+YARN-SITE.XML_yarn.nodemanager.aux-services=mapreduce_shuffle         # Enable shuffle service for MapReduce
+
+# Capacity Scheduler configuration to limit and manage YARN queues
+CAPACITY-SCHEDULER.XML_yarn.scheduler.capacity.maximum-applications=10000
+CAPACITY-SCHEDULER.XML_yarn.scheduler.capacity.maximum-am-resource-percent=0.1
+CAPACITY-SCHEDULER.XML_yarn.scheduler.capacity.resource-calculator=org.apache.hadoop.yarn.util.resource.DefaultResourceCalculator
+CAPACITY-SCHEDULER.XML_yarn.scheduler.capacity.root.queues=default
+CAPACITY-SCHEDULER.XML_yarn.scheduler.capacity.root.default.capacity=100
+CAPACITY-SCHEDULER.XML_yarn.scheduler.capacity.root.default.user-limit-factor=1
+CAPACITY-SCHEDULER.XML_yarn.scheduler.capacity.root.default.maximum-capacity=100
+CAPACITY-SCHEDULER.XML_yarn.scheduler.capacity.root.default.state=RUNNING
+CAPACITY-SCHEDULER.XML_yarn.scheduler.capacity.root.default.acl_submit_applications=*
+CAPACITY-SCHEDULER.XML_yarn.scheduler.capacity.root.default.acl_administer_queue=*
+CAPACITY-SCHEDULER.XML_yarn.scheduler.capacity.node-locality-delay=40
+CAPACITY-SCHEDULER.XML_yarn.scheduler.capacity.queue-mappings=
+CAPACITY-SCHEDULER.XML_yarn.scheduler.capacity.queue-mappings-override.enable=false
