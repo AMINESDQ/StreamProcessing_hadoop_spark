@@ -158,7 +158,7 @@ services:
 
 ### **1. Démarrage de l'application Spark**
 
-![Démarrage du job Spark](screens/pour_démarrer_le_job.png)
+![Démarrage du job Spark](pour_démmarer_le_job.png)
 
 Cette capture d'écran montre comment démarrer l'application Spark après que tous les services Docker sont en cours d'exécution.
 
