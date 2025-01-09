@@ -164,21 +164,21 @@ Cette capture d'écran montre comment démarrer l'application Spark après que t
 
 ### **2. Résultats des incidents par service 1 batch**
 
-![Résultat incidents par service](screens/resultat1.png)
+![Résultat incidents par service](screens/resultat1s.png)
 
 Les incidents sont agrégés par service et affichés en continu dans la console. Cette capture montre les résultats pour les différents services de l'hôpital.
 
 ### **3. Résultats des deux années avec le plus d'incidents 1 batch**
 
-![Résultat incidents par année](screens/resultat1s.png)
+![Résultat incidents par année](screens/resultat1.png)
 
 Les deux années avec le plus grand nombre d'incidents sont affichées en temps réel dans la console.
 
 ### **4. Résultats des incidents par service 2 batch**
-![Résultat incidents par service](screens/res2.png)
+![Résultat incidents par service](screens/res2s.png)
 
 ### **5. Résultats des deux années avec le plus d'incidents 2 batch**
-![Résultat incidents par année](screens/res2s.png)
+![Résultat incidents par année](screens/res2.png)
 
 ## **Conclusion**
 Cette application permet de traiter les incidents de l’hôpital en temps réel en utilisant **Structured Streaming** dans Apache Spark. Les résultats sont affichés continuellement, fournissant une vue en temps réel des incidents par service et des années ayant connu le plus grand nombre d’incidents.
