@@ -75,4 +75,4 @@ public class StreamingApp {
 
         System.out.println("Application Completed.");
     }
-}
+}       
