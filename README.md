@@ -30,8 +30,8 @@ Avant de lancer l'application, assurez-vous d'avoir Docker et Docker Compose ins
 
 1. **Clonez le repository** (ou téléchargez le projet) dans votre environnement local.
    ```bash
-   git clone <url-du-repository>
-   cd <dossier-du-projet>
+   git clone https://github.com/AMINESDQ/StreamProcessing_hadoop_spark.git
+   cd StreamProcessing_hadoop_spark
    ```
 
 2. **Assurez-vous que le dossier `csv_files` contient des fichiers CSV** avec les colonnes suivantes :
